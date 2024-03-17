@@ -6,4 +6,9 @@ const fetchData = createAsyncThunk("data/fetchData", async () => {
   return res.data;
 });
 
+export const deleteData = createAsyncThunk("data/deleteData", async (id) => {
+  await axios.delete(`http://localhost:3000/data/${id}`);
+  return id;
+});
+
 export default fetchData;

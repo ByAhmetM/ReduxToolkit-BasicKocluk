@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import fetchData from "./dataActions";
+import fetchData, { deleteData } from "./dataActions";
 
 const initialState = {
   data: [],
@@ -13,6 +13,12 @@ export const dataSlice = createSlice({
   reducers: {
     addData: (state, action) => {
       state.data.push(action.payload);
+    },
+    updateData: (state, action) => {
+      const newData = state.data.map((i) =>
+        i.id == action.payload.id ? action.payload : i
+      );
+      state.data = newData;
     },
   },
   extraReducers: (builder) => {
@@ -28,10 +34,22 @@ export const dataSlice = createSlice({
       .addCase(fetchData.rejected, (state) => {
         state.loading = false;
         state.error = true;
+      })
+      .addCase(deleteData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = false;
+        state.data = state.data.filter((i) => i.id !== action.payload);
+      })
+      .addCase(deleteData.rejected, (state) => {
+        state.loading = false;
+        state.error = true;
       });
   },
 });
 
-export const { addData } = dataSlice.actions;
+export const { addData, updateData } = dataSlice.actions;
 
 export default dataSlice.reducer;

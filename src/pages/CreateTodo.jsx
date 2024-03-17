@@ -27,8 +27,6 @@ const CreateTodo = ({ setFormVeri }) => {
     navigate("/list");
   };
 
-  const handleClick = () => {};
-
   return (
     <div className="flex flex-col gap-7 mt-10 items-center">
       <h2 className="text-3xl font-bold">Todo Oluştur!</h2>
@@ -48,7 +46,6 @@ const CreateTodo = ({ setFormVeri }) => {
         ))}
 
         <button
-          onClick={handleClick}
           className="px-7 py-2 bg-blue-400 rounded-lg text-lg font-bold"
           type="submit"
         >
