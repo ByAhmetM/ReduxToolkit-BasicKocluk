@@ -1,7 +1,7 @@
 const Input = ({ title, type, id, area, veri }) => {
   return (
-    <div className="flex items-center gap-3 w-full  ">
-      <label className="text-nowrap text-xl" htmlFor={id}>
+    <div className="grid grid-cols-2 gap-10	 items-center  w-full  ">
+      <label className="text-nowrap text-xl justify-self-end " htmlFor={id}>
         {title}
       </label>
       {!area ? (

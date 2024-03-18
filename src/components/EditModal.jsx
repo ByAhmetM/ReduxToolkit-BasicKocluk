@@ -5,7 +5,6 @@ import axios from "axios";
 import { updateData } from "../redux/dataSlice";
 
 const EditModal = ({ close, veri, modalData }) => {
-  console.log(modalData);
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();

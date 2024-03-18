@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import fetchData, { deleteData } from "../redux/dataActions";
 import Loading from "./../components/Loading";
 import EditModal from "./../components/EditModal";
+import QuestionModal from "./../components/QuestionModal";
 
 const TodoList = () => {
   const [modalData, setModalData] = useState({});
   const [isEdit, setIsEdit] = useState(false);
+  const [isOpenQuestion, setIsOpenQuestion] = useState(false);
 
   const data = useSelector((state) => state.data);
-  console.log(data);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,6 +19,10 @@ const TodoList = () => {
 
   const close = () => {
     setIsEdit(false);
+  };
+
+  const closeQuestion = () => {
+    setIsOpenQuestion(false);
   };
 
   return (
@@ -54,26 +59,37 @@ const TodoList = () => {
           ) : (
             data?.data?.map((veri) => (
               <tr key={veri.id}>
-                <td className="whitespace-nowrap text-center text-sm font-medium text-gray-900 sm:pl-0">
+                <td className="whitespace-nowrap capitalize text-center text-sm font-medium text-gray-900 sm:pl-0">
                   {veri.author}
                 </td>
                 <td className="whitespace-nowrap text-center text-sm text-black">
                   {veri.class}
                 </td>
-                <td className="whitespace-nowrap text-center text-sm text-black">
+                <td className="whitespace-nowrap capitalize text-center text-sm text-black">
                   {veri.lesson}
                 </td>
-                <td className="whitespace-nowrap text-center text-sm text-black">
+                <td className="whitespace-nowrap capitalize text-center text-sm text-black">
                   {veri.subject}
                 </td>
                 <td className="whitespace-nowrap text-center text-black  text-sm font-medium sm:pr-0">
-                  <button>
+                  <button
+                    onClick={() => {
+                      setModalData(veri), setIsOpenQuestion(true);
+                    }}
+                  >
                     <span class="box">Soruyu Gör!</span>
                   </button>
                 </td>
 
                 {isEdit && (
                   <EditModal modalData={modalData} close={close} veri={veri} />
+                )}
+
+                {isOpenQuestion && (
+                  <QuestionModal
+                    modalData={modalData}
+                    closeQuestion={closeQuestion}
+                  />
                 )}
 
                 <td className="flex gap-2 items-center justify-center py-4 pl-3 pr-4 text-black text-center  text-sm font-medium sm:pr-0">
